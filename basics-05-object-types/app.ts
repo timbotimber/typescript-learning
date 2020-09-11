@@ -1,38 +1,28 @@
-// To note an object you need to assign an empty curly bracket
-// the types get put into the curlies but it's not best practice
-// const person: {
-//   name: string;
-//   age: number;
-// } = {
-//   name: "Timmy",
-//   age: 32,
-// };
+// set a type 'variable' called an alias that sets 1 variable for a union type
+type Combinable = number | string;
+type ConversionDescriptor = "as-number" | "as-string";
 
-const person: {
-  // if you're defining the tuple type you need to add the definition before you declare the object
-  name: string;
-  age: number;
-  hobbies: string[];
-  role: [number, string];
-} = {
-  name: "timmmehh",
-  age: 32,
-  // TS knows this is a array of strings
-  hobbies: ["star wars", "DnD", "synths"],
-  // this is a tuple type. Not really sure what this is for yet...
-  role: [2, "teacher"],
-};
+// use the | command to create UNION TYPES. This allows you to input 2 or more values for one input
 
-// the any type allows you to have a mixed array of types
-let favouritetings: any[];
-favouritetings = ["X-wings", 45];
+// UNION types require more logic in the function at run time as more types confuse typescript:
 
-// because we've set the type as a array of strings above, TS recommends functions because it knows what the type is.
-for (const hobby of person.hobbies) {
-  // TS recommended the .toUpperCase
-  console.log(hobby.toUpperCase());
-  // using .map below breaks it
-  // console.log(hobby.map());
+//  this now uses alias types
+function combine(
+  input1: Combinable,
+  input2: Combinable,
+  resultConversion: ConversionDescriptor
+) {
+  let result;
+  if (typeof input1 === "number" && typeof input2 === "number") {
+    result = input1 + input2;
+    return result;
+  } else {
+    result = input1.toString() + input2.toString();
+  }
+
+  return resultConversion === "as-number" ? +result : result.toString();
 }
 
-console.log(person.age);
+console.log(combine(34, 56, "as-number"));
+console.log(combine("34", "56", "as-string"));
+console.log(combine("al", "an", "as-string"));
