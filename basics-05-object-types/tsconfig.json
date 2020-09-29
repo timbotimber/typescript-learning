@@ -73,5 +73,5 @@
   },
   // good to add node_modules. Here.
   "exclude": ["node_modules"],
-  "include": ["**/app.ts", "**/analytics.ts"]
+  "include": ["**/app.ts", "**/analytics.ts", "src/module2_notes.ts"]
 }
